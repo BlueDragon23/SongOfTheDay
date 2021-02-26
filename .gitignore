@@ -1,0 +1,8 @@
+# Generated folders
+build/
+logs/
+
+# Gradle stuff
+.gradle
+# IntelliJ stuff
+.idea
