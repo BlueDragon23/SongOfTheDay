@@ -79,7 +79,7 @@ public class PlaylistObject {
 
     @JsonAutoDetect
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class PlaylistTracks {
+    public static class PlaylistTracks {
         private final String href;
         private final List<TrackObject> items;
 
