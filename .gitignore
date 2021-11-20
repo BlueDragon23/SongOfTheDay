@@ -7,4 +7,4 @@ logs/
 # IntelliJ stuff
 .idea
 
-secret.properties
+app.properties
