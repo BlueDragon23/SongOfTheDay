@@ -1,6 +1,7 @@
 package sotd.notion;
 
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import feign.Feign;
 import feign.Logger;
@@ -28,6 +29,7 @@ public class NotionService {
     private final Notion notion;
     private final NotionConverter notionConverter;
 
+    @Inject
     public NotionService(@Named("notion.database.id") String databaseId, @Named("notion.secret.key") String secretKey) {
         this.databaseId = databaseId;
         this.secretKey = secretKey;

@@ -16,7 +16,7 @@ ext {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    testCompile 'org.assertj:assertj-core:3.11.1'
+    testImplementation 'org.assertj:assertj-core:3.21.0'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations

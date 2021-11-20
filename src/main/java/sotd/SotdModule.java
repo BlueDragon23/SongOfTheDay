@@ -12,15 +12,15 @@ public class SotdModule extends AbstractModule {
     @Override
     protected void configure() {
 
-        final String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        final String appConfigPath = rootPath + "app.properties";
+        final String appConfigPath = "app.properties";
         try (FileInputStream stream = new FileInputStream(appConfigPath)) {
 
             final Properties appProps = new Properties();
             appProps.load(stream);
             Names.bindProperties(binder(), appProps);
         } catch (IOException exception) {
-            System.out.println("Failed to load properties file: " + exception.getMessage());
+            System.err.println("Failed to load properties file: " + exception.getMessage());
+            System.exit(1);
         }
     }
 }

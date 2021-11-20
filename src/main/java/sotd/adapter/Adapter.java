@@ -1,10 +1,8 @@
 package sotd.adapter;
 
+import sotd.common.model.Song;
 import sotd.spotify.model.PlaylistObject;
-import sotd.spotify.model.TrackObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,27 +10,25 @@ import java.util.stream.Collectors;
 
 public class Adapter {
 
-    public void findNewSongs(final PlaylistObject playlist) {
-        // Get current state from Notion/other provider
-        final List<String> existingIds = Collections.emptyList();
-        final List<String> ids = getTrackIds(playlist);
+    public Modification findNewSongs(final PlaylistObject playlist, final List<Song> existingSongs) {
+        final List<Song> songs = getSongs(playlist);
         // Compare lists
-        final Modification modification = getModifications(ids, existingIds);
+        final Modification modification = getModifications(songs, existingSongs);
         // Update Notion
-
+        return modification;
     }
 
-    private Modification getModifications(List<String> ids, List<String> existingIds) {
-        final Set<String> idSet = new HashSet<>(ids);
-        final Set<String> existingIdSet = new HashSet<>(existingIds);
-        final List<String> toBeAdded = new ArrayList<>();
-        for (String id : ids) {
+    private Modification getModifications(List<Song> ids, List<Song> existingIds) {
+        final Set<Song> idSet = new HashSet<>(ids);
+        final Set<Song> existingIdSet = new HashSet<>(existingIds);
+        final Set<Song> toBeAdded = new HashSet<>();
+        for (Song id : ids) {
             if (!existingIdSet.contains(id)) {
                 toBeAdded.add(id);
             }
         }
-        final List<String> toBeRemoved = new ArrayList<>();
-        for (String id : existingIds) {
+        final Set<Song> toBeRemoved = new HashSet<>();
+        for (Song id : existingIds) {
             if (!idSet.contains(id)) {
                 toBeRemoved.add(id);
             }
@@ -43,17 +39,17 @@ public class Adapter {
         return modification;
     }
 
-    private List<String> getTrackIds(PlaylistObject playlist) {
+    private List<Song> getSongs(PlaylistObject playlist) {
         return playlist
                 .getTracks()
                 .getItems()
                 .stream()
-                .map(TrackObject::getId)
+                .map(Song::fromTrack)
                 .collect(Collectors.toList());
     }
 
-    static class Modification {
-        public List<String> toBeAdded;
-        public List<String> toBeRemoved;
+    public static class Modification {
+        public Set<Song> toBeAdded;
+        public Set<Song> toBeRemoved;
     }
 }
