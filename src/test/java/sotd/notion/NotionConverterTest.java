@@ -44,7 +44,7 @@ class NotionConverterTest {
                 .hasEntrySatisfying("Title", propertyValueEquals("Arabella"))
                 .hasEntrySatisfying("Artists", propertyValueEquals("Arctic Monkeys"))
                 .hasEntrySatisfying("Album", propertyValueEquals("AM"))
-                .hasEntrySatisfying("Date Added", v -> assertThat(v.getId()).startsWith("2021"));
+                .hasEntrySatisfying("Date Added", v -> assertThat(v.getId()).startsWith("202"));
     }
 
     private Consumer<PropertyValue> propertyValueEquals(String expected) {

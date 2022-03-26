@@ -35,6 +35,7 @@ public class Executor {
 
     public void execute() {
 
+        // TODO: make oauth work
         Spotify spotify = Feign.builder()
                 .requestInterceptor(input -> input.header("Authorization", spotifyToken))
                 .logger(new Logger.JavaLogger("Spotify.Logger").appendToFile("logs/sotd.spotify.log"))
