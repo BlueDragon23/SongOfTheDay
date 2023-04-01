@@ -1,12 +1,13 @@
 package sotd;
 
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import feign.Feign;
 import feign.Logger;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import sotd.adapter.Adapter;
 import sotd.common.model.Song;
 import sotd.notion.NotionService;
@@ -20,16 +21,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class Executor {
 
-    private final String spotifyToken;
-    private final String spotifyPlaylistId;
+    @Value("${spotify.api.token}")
+    private String spotifyToken;
+    @Value("${spotify.playlist.id}")
+    private String spotifyPlaylistId;
+
     private final NotionService notionService;
 
-    @Inject
-    public Executor(@Named("spotify.api.token") String spotifyToken, @Named("spotify.playlist.id") String spotifyPlaylistId, NotionService notionService) {
-        this.spotifyToken = spotifyToken;
-        this.spotifyPlaylistId = spotifyPlaylistId;
+    @Autowired
+    public Executor(NotionService notionService) {
         this.notionService = notionService;
     }
 

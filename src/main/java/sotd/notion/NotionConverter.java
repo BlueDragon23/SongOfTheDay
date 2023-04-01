@@ -1,5 +1,6 @@
 package sotd.notion;
 
+import org.springframework.stereotype.Component;
 import sotd.adapter.ModelConverter;
 import sotd.notion.model.PropertyValue;
 import sotd.spotify.model.SimplifiedArtistObject;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class NotionConverter implements ModelConverter<Map<String, PropertyValue>> {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_INSTANT;

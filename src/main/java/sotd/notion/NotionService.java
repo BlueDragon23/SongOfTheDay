@@ -1,16 +1,17 @@
 package sotd.notion;
 
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import feign.Feign;
 import feign.Logger;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
-import sotd.notion.model.UpdateDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import sotd.notion.model.Page;
 import sotd.notion.model.PropertyValue;
 import sotd.notion.model.QueryResponse;
+import sotd.notion.model.UpdateDatabase;
 import sotd.notion.model.query.QueryDatabaseBody;
 import sotd.notion.model.query.Sort;
 import sotd.spotify.model.TrackObject;
@@ -22,17 +23,18 @@ import java.util.Map;
 /**
  * Handle interactions to sotd.notion
  */
+@Component
 public class NotionService {
 
-    private final String databaseId;
-    private final String secretKey;
+    @Value("${notion.database.id}")
+    private String databaseId;
+    @Value("${notion.secret.key}")
+    private String secretKey;
     private final Notion notion;
     private final NotionConverter notionConverter;
 
-    @Inject
-    public NotionService(@Named("notion.database.id") String databaseId, @Named("notion.secret.key") String secretKey) {
-        this.databaseId = databaseId;
-        this.secretKey = secretKey;
+    @Autowired
+    public NotionService() {
         notion = Feign.builder()
                 .requestInterceptor(input -> input.header("Authorization", secretKey))
                 .logger(new Logger.JavaLogger("Notion.Logger").appendToFile("logs/sotd.notion.log"))
