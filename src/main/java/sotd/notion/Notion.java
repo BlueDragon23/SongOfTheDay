@@ -2,8 +2,8 @@ package sotd.notion;
 
 import feign.Param;
 import feign.RequestLine;
-import sotd.notion.model.UpdateDatabase;
 import sotd.notion.model.QueryResponse;
+import sotd.notion.model.UpdateDatabase;
 import sotd.notion.model.query.QueryDatabaseBody;
 
 /**

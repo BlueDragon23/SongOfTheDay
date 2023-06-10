@@ -1,16 +1,15 @@
 package sotd.notion;
 
-import org.springframework.stereotype.Component;
-import sotd.adapter.ModelConverter;
-import sotd.notion.model.PropertyValue;
-import sotd.spotify.model.SimplifiedArtistObject;
-import sotd.spotify.model.TrackObject;
-
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
+import sotd.adapter.ModelConverter;
+import sotd.notion.model.PropertyValue;
+import sotd.spotify.model.SimplifiedArtistObject;
+import sotd.spotify.model.TrackObject;
 
 @Component
 public class NotionConverter implements ModelConverter<Map<String, PropertyValue>> {
@@ -21,15 +20,17 @@ public class NotionConverter implements ModelConverter<Map<String, PropertyValue
     public Map<String, PropertyValue> toRecord(TrackObject trackObject) {
         Map<String, PropertyValue> properties = new HashMap<>();
         properties.put("Title", new PropertyValue(trackObject.getName(), PropertyValue.PropertyType.TITLE));
-        properties.put("Artists", new PropertyValue(
-                trackObject
-                        .getArtists()
-                        .stream()
-                        .map(SimplifiedArtistObject::getName)
-                        .collect(Collectors.joining(", ")),
-                PropertyValue.PropertyType.RICH_TEXT));
-        properties.put("Album", new PropertyValue(trackObject.getAlbum().getName(), PropertyValue.PropertyType.RICH_TEXT));
-        properties.put("Date Added", new PropertyValue(FORMATTER.format(Instant.now()), PropertyValue.PropertyType.DATE));
+        properties.put(
+                "Artists",
+                new PropertyValue(
+                        trackObject.getArtists().stream()
+                                .map(SimplifiedArtistObject::getName)
+                                .collect(Collectors.joining(", ")),
+                        PropertyValue.PropertyType.RICH_TEXT));
+        properties.put(
+                "Album", new PropertyValue(trackObject.getAlbum().getName(), PropertyValue.PropertyType.RICH_TEXT));
+        properties.put(
+                "Date Added", new PropertyValue(FORMATTER.format(Instant.now()), PropertyValue.PropertyType.DATE));
         return properties;
     }
 

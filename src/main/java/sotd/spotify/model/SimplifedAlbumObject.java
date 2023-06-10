@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 @JsonAutoDetect
@@ -21,15 +20,16 @@ public class SimplifedAlbumObject {
     private final String uri;
 
     @JsonCreator
-    public SimplifedAlbumObject(@JsonProperty("album_group") String albumGroup,
-                                @JsonProperty("album_type") String albumType,
-                                @JsonProperty("artists") List<SimplifiedArtistObject> artists,
-                                @JsonProperty("href") String href,
-                                @JsonProperty("id") String id,
-                                @JsonProperty("name") String name,
-                                @JsonProperty("release_date") String releaseDate,
-                                @JsonProperty("type") String type,
-                                @JsonProperty("uri") String uri) {
+    public SimplifedAlbumObject(
+            @JsonProperty("album_group") String albumGroup,
+            @JsonProperty("album_type") String albumType,
+            @JsonProperty("artists") List<SimplifiedArtistObject> artists,
+            @JsonProperty("href") String href,
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("release_date") String releaseDate,
+            @JsonProperty("type") String type,
+            @JsonProperty("uri") String uri) {
         this.albumGroup = albumGroup;
         this.albumType = albumType;
         this.artists = artists;

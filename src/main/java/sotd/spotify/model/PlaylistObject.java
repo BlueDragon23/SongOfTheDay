@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 @JsonAutoDetect
@@ -21,15 +20,16 @@ public class PlaylistObject {
     private final String uri;
 
     @JsonCreator
-    public PlaylistObject(@JsonProperty("collaborative") boolean collaborative,
-                          @JsonProperty("description") String description,
-                          @JsonProperty("href") String href,
-                          @JsonProperty("id") String id,
-                          @JsonProperty("name") String name,
-                          @JsonProperty("snapshot_id") String snapshotId,
-                          @JsonProperty("tracks") PlaylistTracks tracks,
-                          @JsonProperty("type") String type,
-                          @JsonProperty("uri") String uri) {
+    public PlaylistObject(
+            @JsonProperty("collaborative") boolean collaborative,
+            @JsonProperty("description") String description,
+            @JsonProperty("href") String href,
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("snapshot_id") String snapshotId,
+            @JsonProperty("tracks") PlaylistTracks tracks,
+            @JsonProperty("type") String type,
+            @JsonProperty("uri") String uri) {
         this.collaborative = collaborative;
         this.description = description;
         this.href = href;
@@ -84,8 +84,7 @@ public class PlaylistObject {
         private final List<TrackObject> items;
 
         @JsonCreator
-        private PlaylistTracks(@JsonProperty("href") String href,
-                               @JsonProperty("items") List<TrackObject> items) {
+        private PlaylistTracks(@JsonProperty("href") String href, @JsonProperty("items") List<TrackObject> items) {
             this.href = href;
             this.items = items;
         }

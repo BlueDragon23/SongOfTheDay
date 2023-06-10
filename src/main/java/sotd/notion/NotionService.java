@@ -5,6 +5,9 @@ import feign.Feign;
 import feign.Logger;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,10 +19,6 @@ import sotd.notion.model.query.QueryDatabaseBody;
 import sotd.notion.model.query.Sort;
 import sotd.spotify.model.TrackObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Handle interactions to sotd.notion
  */
@@ -28,8 +27,10 @@ public class NotionService {
 
     @Value("${notion.database.id}")
     private String databaseId;
+
     @Value("${notion.secret.key}")
     private String secretKey;
+
     private final Notion notion;
     private final NotionConverter notionConverter;
 
@@ -52,8 +53,7 @@ public class NotionService {
     }
 
     public List<Page> getTracks() {
-        QueryDatabaseBody body = new QueryDatabaseBody()
-                .withSorts(List.of(new Sort("Date Added", "ascending")));
+        QueryDatabaseBody body = new QueryDatabaseBody().withSorts(List.of(new Sort("Date Added", "ascending")));
         QueryResponse response = notion.queryDatabase(body, databaseId);
         List<Page> pages = new ArrayList<>(response.getResults());
         // pagination

@@ -1,12 +1,11 @@
 package sotd.adapter;
 
-import sotd.common.model.Song;
-import sotd.spotify.model.PlaylistObject;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import sotd.common.model.Song;
+import sotd.spotify.model.PlaylistObject;
 
 public class Adapter {
 
@@ -40,12 +39,7 @@ public class Adapter {
     }
 
     private List<Song> getSongs(PlaylistObject playlist) {
-        return playlist
-                .getTracks()
-                .getItems()
-                .stream()
-                .map(Song::fromTrack)
-                .collect(Collectors.toList());
+        return playlist.getTracks().getItems().stream().map(Song::fromTrack).collect(Collectors.toList());
     }
 
     public static class Modification {

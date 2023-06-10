@@ -11,9 +11,7 @@ public class PropertyValue {
     private final PropertyType type;
 
     @JsonCreator
-    public PropertyValue(
-            @JsonProperty("id") String id,
-            @JsonProperty("type") PropertyType type) {
+    public PropertyValue(@JsonProperty("id") String id, @JsonProperty("type") PropertyType type) {
         this.id = id;
         this.type = type;
     }
@@ -27,7 +25,6 @@ public class PropertyValue {
     }
 
     public enum PropertyType {
-
         RICH_TEXT("rich_text"),
         NUMBER("number"),
         SELECT("select"),

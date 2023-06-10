@@ -1,11 +1,10 @@
 package sotd.common.model;
 
-import sotd.spotify.model.SimplifiedArtistObject;
-import sotd.spotify.model.TrackObject;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import sotd.spotify.model.SimplifiedArtistObject;
+import sotd.spotify.model.TrackObject;
 
 public class Song {
     private final String title;
@@ -18,7 +17,8 @@ public class Song {
 
     public static Song fromTrack(TrackObject track) {
         String title = track.getName();
-        List<String> artists = track.getArtists().stream().map(SimplifiedArtistObject::getName).collect(Collectors.toList());
+        List<String> artists =
+                track.getArtists().stream().map(SimplifiedArtistObject::getName).collect(Collectors.toList());
         return new Song(title, artists);
     }
 

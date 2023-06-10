@@ -3,7 +3,6 @@ package sotd.spotify.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 @JsonAutoDetect
@@ -20,17 +19,18 @@ public class TrackObject {
     private final int trackNumber;
     private final String type;
 
-    public TrackObject(@JsonProperty("album") SimplifedAlbumObject album,
-                       @JsonProperty("artists") List<ArtistObject> artists,
-                       @JsonProperty("duration_ms") int durationMs,
-                       @JsonProperty("href") String href,
-                       @JsonProperty("id") String id,
-                       @JsonProperty("is_local") boolean isLocal,
-                       @JsonProperty("name") String name,
-                       @JsonProperty("preview_url") String previewUrl,
-                       @JsonProperty("track_number") int trackNumber,
-                       @JsonProperty("type") String type,
-                       @JsonProperty("uri") String uri) {
+    public TrackObject(
+            @JsonProperty("album") SimplifedAlbumObject album,
+            @JsonProperty("artists") List<ArtistObject> artists,
+            @JsonProperty("duration_ms") int durationMs,
+            @JsonProperty("href") String href,
+            @JsonProperty("id") String id,
+            @JsonProperty("is_local") boolean isLocal,
+            @JsonProperty("name") String name,
+            @JsonProperty("preview_url") String previewUrl,
+            @JsonProperty("track_number") int trackNumber,
+            @JsonProperty("type") String type,
+            @JsonProperty("uri") String uri) {
         this.album = album;
         this.artists = artists;
         this.durationMs = durationMs;

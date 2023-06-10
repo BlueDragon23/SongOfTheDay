@@ -2,7 +2,6 @@ package sotd.notion.model.query;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +12,7 @@ public class QueryDatabaseBody {
 
     @JsonProperty("start_cursor")
     private Optional<String> startCursor;
+
     @JsonProperty("page_size")
     private final int pageSize = 100;
 

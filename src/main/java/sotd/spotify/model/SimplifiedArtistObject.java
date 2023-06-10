@@ -15,11 +15,12 @@ public class SimplifiedArtistObject {
     private final String uri;
 
     @JsonCreator
-    public SimplifiedArtistObject(@JsonProperty("href") String href,
-                                  @JsonProperty("id") String id,
-                                  @JsonProperty("name") String name,
-                                  @JsonProperty("type") String type,
-                                  @JsonProperty("uri") String uri) {
+    public SimplifiedArtistObject(
+            @JsonProperty("href") String href,
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("type") String type,
+            @JsonProperty("uri") String uri) {
         this.href = href;
         this.id = id;
         this.name = name;

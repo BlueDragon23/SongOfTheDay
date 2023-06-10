@@ -1,17 +1,16 @@
 package sotd.notion;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sotd.notion.model.PropertyValue;
 import sotd.spotify.model.ArtistObject;
 import sotd.spotify.model.SimplifedAlbumObject;
 import sotd.spotify.model.TrackObject;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class NotionConverterTest {
 
@@ -26,8 +25,7 @@ class NotionConverterTest {
             "",
             0,
             "",
-            ""
-    );
+            "");
 
     private NotionConverter notionConverter;
 

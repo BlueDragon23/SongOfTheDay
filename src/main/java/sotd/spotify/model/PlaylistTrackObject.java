@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDateTime;
 
 @JsonAutoDetect
@@ -16,10 +15,11 @@ public class PlaylistTrackObject {
     private final TrackObject track;
 
     @JsonCreator
-    public PlaylistTrackObject(@JsonProperty("added_at") LocalDateTime addedAt,
-                               @JsonProperty("added_by") String addedBy,
-                               @JsonProperty("is_local") boolean isLocal,
-                               @JsonProperty("track") TrackObject track) {
+    public PlaylistTrackObject(
+            @JsonProperty("added_at") LocalDateTime addedAt,
+            @JsonProperty("added_by") String addedBy,
+            @JsonProperty("is_local") boolean isLocal,
+            @JsonProperty("track") TrackObject track) {
         this.addedAt = addedAt;
         this.addedBy = addedBy;
         this.isLocal = isLocal;

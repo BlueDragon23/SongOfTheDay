@@ -1,12 +1,11 @@
 package sotd.notion.model.query;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static sotd.testutils.TestUtils.MAPPER;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class QueryDatabaseBodyTest {
 
