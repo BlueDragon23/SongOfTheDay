@@ -1,6 +1,10 @@
 package sotd.rest;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +20,6 @@ import sotd.spotify.SpotifyProperties;
 import sotd.spotify.model.AccessTokenRequest;
 import sotd.spotify.model.AccessTokenResponse;
 import sotd.spotify.oauth.SpotifyOAuth;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
-import static sotd.spotify.SpotifyConfiguration.SPOTIFY_ACCOUNTS_URL;
 
 @RestController
 public class SotdController {
@@ -51,7 +48,7 @@ public class SotdController {
     public ResponseEntity<?> login() {
         // Return redirect to Spotify auth
         HttpHeaders headers = new HttpHeaders();
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString(SPOTIFY_ACCOUNTS_URL)
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(spotifyProperties.getAccountUrl())
                 .path("/authorize")
                 .queryParam("client_id", spotifyProperties.getClientId())
                 .queryParam("response_type", "code")

@@ -25,10 +25,10 @@ import sotd.spotify.model.TrackObject;
 @Component
 public class NotionService {
 
-    @Value("${notion.database.id}")
+    @Value("notion.database.id")
     private String databaseId;
 
-    @Value("${notion.secret.key}")
+    @Value("notion.secret.key")
     private String secretKey;
 
     private final Notion notion;

@@ -1,5 +1,8 @@
 package sotd;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,6 @@ import sotd.spotify.Spotify;
 import sotd.spotify.SpotifyProperties;
 import sotd.spotify.model.PlaylistObject;
 import sotd.spotify.model.TrackObject;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class Executor {

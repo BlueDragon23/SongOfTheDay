@@ -14,6 +14,7 @@ repositories {
 
 val jacksonVersion = "2.15.2"
 val springVersion = "3.1.0"
+val junitVersion = "5.9.2"
 
 dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
@@ -32,9 +33,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:$springVersion")
 
     // Tests
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("com.github.tomakehurst:wiremock:3.0.0-beta-9")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
+    testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.0.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 spotless {
