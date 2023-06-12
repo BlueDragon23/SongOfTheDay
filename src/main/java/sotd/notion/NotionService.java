@@ -37,9 +37,9 @@ public class NotionService {
     @Autowired
     public NotionService() {
         notion = Feign.builder()
-                .requestInterceptor(input -> input.header("Authorization", secretKey))
+                .requestInterceptor(input -> input.header("Authorization", "Bearer " + secretKey))
                 .logger(new Logger.JavaLogger("Notion.Logger").appendToFile("logs/sotd.notion.log"))
-                .logLevel(Logger.Level.NONE)
+                .logLevel(Logger.Level.BASIC)
                 .encoder(new JacksonEncoder(List.of(new Jdk8Module())))
                 .decoder(new JacksonDecoder(List.of(new Jdk8Module())))
                 .target(Notion.class, "https://api.notion.com");

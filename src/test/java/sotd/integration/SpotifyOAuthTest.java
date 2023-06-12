@@ -4,6 +4,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.tomakehurst.wiremock.matching.EqualToPattern;
 import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ class SpotifyOAuthTest {
         AccessTokenResponse accessTokenResponse =
                 new AccessTokenResponse("accessToken", "type", "playlist-read-private", 10, "refresh");
         stubFor(post(urlEqualTo("/api/token"))
+                .withFormParam("grant_type", new EqualToPattern("authorization_code"))
                 .willReturn(aResponse().withBody(TestUtils.MAPPER.writeValueAsString(accessTokenResponse))));
 
         // then

@@ -56,7 +56,7 @@ public class Executor {
                     Song song = Song.fromTrack(t);
                     return newSongs.toBeAdded.contains(song);
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         newTracks.forEach(notionService::addTrack);
     }

@@ -4,18 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+/**
+ * @param expiresIn Expiry period in seconds
+ */
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class AccessTokenResponse {
-    private final String accessToken;
-    private final String tokenType;
-    private final String scope;
-    /**
-     * Expiry period in seconds
-     */
-    private final int expiresIn;
-
-    private final String refreshToken;
-
+public record AccessTokenResponse(
+        String accessToken, String tokenType, String scope, int expiresIn, String refreshToken) {
     public AccessTokenResponse(
             @JsonProperty("access_token") String accessToken,
             @JsonProperty("token_type") String tokenType,
@@ -27,25 +21,5 @@ public class AccessTokenResponse {
         this.scope = scope;
         this.expiresIn = expiresIn;
         this.refreshToken = refreshToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public String getTokenType() {
-        return tokenType;
-    }
-
-    public String getScope() {
-        return scope;
-    }
-
-    public int getExpiresIn() {
-        return expiresIn;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
     }
 }

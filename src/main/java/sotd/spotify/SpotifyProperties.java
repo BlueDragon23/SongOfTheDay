@@ -2,6 +2,7 @@ package sotd.spotify;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import sotd.spotify.model.AccessTokenResponse;
 
 @Configuration
 @ConfigurationProperties(prefix = "spotify")
@@ -14,6 +15,8 @@ public class SpotifyProperties {
     private String playlistId;
 
     private String accountUrl;
+
+    private AccessTokenResponse accessTokenResponse;
 
     public String getClientId() {
         return clientId;
@@ -45,5 +48,13 @@ public class SpotifyProperties {
 
     public void setAccountUrl(String accountUrl) {
         this.accountUrl = accountUrl;
+    }
+
+    public AccessTokenResponse getAccessTokenResponse() {
+        return accessTokenResponse;
+    }
+
+    public void setAccessTokenResponse(AccessTokenResponse accessTokenResponse) {
+        this.accessTokenResponse = accessTokenResponse;
     }
 }

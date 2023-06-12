@@ -7,4 +7,6 @@ logs/
 # IntelliJ stuff
 .idea
 
+# pls no creds
 src/main/resources/application.properties
+access_token

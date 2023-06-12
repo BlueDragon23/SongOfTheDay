@@ -28,6 +28,7 @@ dependencies {
     implementation("io.github.openfeign:feign-core:11.5")
     // https://mvnrepository.com/artifact/io.github.openfeign/feign-jackson
     implementation("io.github.openfeign:feign-jackson:11.5")
+    implementation("io.github.openfeign.form:feign-form:3.8.0")
 
     implementation(platform("org.springframework.boot:spring-boot-dependencies:$springVersion"))
     implementation("org.springframework.boot:spring-boot-starter-web:$springVersion")

@@ -69,10 +69,13 @@ public class SotdController {
         String auth = getAuthHeader();
         AccessTokenResponse accessTokenResponse = spotifyOAuth.token(new AccessTokenRequest(code), auth);
         try {
+            // store the access details for persistence
             JSON_MAPPER.writeValue(new File("access_token"), accessTokenResponse);
         } catch (IOException e) {
             logger.error("Failed to write access token file", e);
         }
+        // also update our state
+        spotifyProperties.setAccessTokenResponse(accessTokenResponse);
     }
 
     /**
