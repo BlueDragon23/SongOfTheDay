@@ -2,11 +2,9 @@ package sotd.spotify.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SimplifiedArtistObject {
     private final String href;
     private final String id;

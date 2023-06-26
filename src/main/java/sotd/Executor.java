@@ -1,8 +1,5 @@
 package sotd;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +8,16 @@ import sotd.adapter.Adapter;
 import sotd.common.model.Song;
 import sotd.notion.NotionService;
 import sotd.notion.model.Page;
-import sotd.notion.model.PropertyValue;
+import sotd.notion.model.propertyvalues.DatePropertyValue;
+import sotd.notion.model.propertyvalues.RichTextPropertyValue;
+import sotd.notion.model.propertyvalues.TitlePropertyValue;
 import sotd.spotify.Spotify;
 import sotd.spotify.SpotifyProperties;
 import sotd.spotify.model.PlaylistObject;
-import sotd.spotify.model.TrackObject;
+import sotd.spotify.model.PlaylistTrackObject;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class Executor {
@@ -37,27 +39,35 @@ public class Executor {
 
     public void execute() {
         PlaylistObject playlist = spotify.getPlaylist(spotifyProperties.getPlaylistId());
-        logger.info("{}: {}", playlist.getName(), playlist.getDescription());
+        logger.info("{}: {}", playlist.name(), playlist.description());
 
         List<Page> entries = notionService.getTracks();
+        logger.info("There are {} entries", entries.size());
+        if (entries.size() > 0) {
+            logger.info("First entry is {}", entries.get(0));
+        }
         List<Song> existingSongs = entries.stream()
                 .map(p -> {
-                    Map<String, PropertyValue> properties = p.getProperties();
+                    TitlePropertyValue title = p.getPropertyValue("Title");
+                    DatePropertyValue dateAdded = p.getPropertyValue("Date Added");
+                    RichTextPropertyValue artists = p.getPropertyValue("Artists");
                     return new Song(
-                            properties.get("Title").getId(),
-                            List.of(properties.get("Artists").getId().split(", ")));
+                            title.getPlainText(),
+                            List.of(artists.getPlainText().split(", ")),
+                            dateAdded.getDateObject().getStartDate());
                 })
                 .collect(Collectors.toList());
         Adapter adapter = new Adapter();
         Adapter.Modification newSongs = adapter.findNewSongs(playlist, existingSongs);
 
-        List<TrackObject> newTracks = playlist.getTracks().getItems().stream()
+        List<PlaylistTrackObject> newTracks = playlist.tracks().items().stream()
                 .filter(t -> {
                     Song song = Song.fromTrack(t);
-                    return newSongs.toBeAdded.contains(song);
+                    return newSongs.toBeAdded().contains(song);
                 })
                 .toList();
 
         newTracks.forEach(notionService::addTrack);
+        logger.info("Completed updating Notion");
     }
 }

@@ -1,0 +1,135 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "page",
+      "id": "7265d820-50f3-41e7-ac18-1d9a23e76a7d",
+      "created_time": "2023-06-12T11:38:00.000Z",
+      "last_edited_time": "2023-06-20T02:56:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "a98c0445-cc37-4e47-b27b-a269d226420f"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "a98c0445-cc37-4e47-b27b-a269d226420f"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "d1fcf64b-aacc-4cd5-a61c-ba59b2d690c6"
+      },
+      "archived": false,
+      "properties": {
+        "Date Added": {
+          "id": "EuA%3A",
+          "type": "date",
+          "date": {
+            "start": "2023-06-20",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Notes": {
+          "id": "L%40%5Bo",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Make sure this is retrieved",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Make sure this is retrieved",
+              "href": null
+            }
+          ]
+        },
+        "Album": {
+          "id": "_Ii%3C",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Wow",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Wow",
+              "href": null
+            }
+          ]
+        },
+        "Artists": {
+          "id": "e%5CIJ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "First",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "First",
+              "href": null
+            }
+          ]
+        },
+        "Title": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Test",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Test",
+              "href": null
+            }
+          ]
+        }
+      },
+      "url": "https://www.notion.so/Test-7265d82050f341e7ac181d9a23e76a7d",
+      "public_url": null
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "page",
+  "page": {}
+}

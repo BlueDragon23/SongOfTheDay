@@ -2,12 +2,10 @@ package sotd.spotify.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SimplifedAlbumObject {
     private final String albumGroup;
     private final String albumType;

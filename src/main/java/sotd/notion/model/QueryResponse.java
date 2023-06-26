@@ -4,12 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-public class QueryResponse {
-
-    private final String object;
-    private final List<Page> results;
-    private final boolean hasMore;
-    private final String nextCursor;
+public record QueryResponse(String object, List<Page> results, boolean hasMore, String nextCursor) {
 
     @JsonCreator
     public QueryResponse(
@@ -21,21 +16,5 @@ public class QueryResponse {
         this.results = results;
         this.hasMore = hasMore;
         this.nextCursor = nextCursor;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    public List<Page> getResults() {
-        return results;
-    }
-
-    public boolean hasMore() {
-        return hasMore;
-    }
-
-    public String getNextCursor() {
-        return nextCursor;
     }
 }

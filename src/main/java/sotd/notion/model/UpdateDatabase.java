@@ -2,23 +2,18 @@ package sotd.notion.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import sotd.notion.model.propertyvalues.PropertyValue;
 
+/**
+ * @param properties Always page
+ */
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UpdateDatabase {
-
-    // Always page
-    private final Map<String, PropertyValue> properties;
+public record UpdateDatabase(Map<String, PropertyValue> properties) {
 
     @JsonCreator
     public UpdateDatabase(@JsonProperty("properties") Map<String, PropertyValue> properties) {
         this.properties = properties;
-    }
-
-    public Map<String, PropertyValue> getProperties() {
-        return properties;
     }
 }

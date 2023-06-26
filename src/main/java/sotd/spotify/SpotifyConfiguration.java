@@ -5,12 +5,10 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import feign.Feign;
 import feign.Logger;
 import feign.form.FormEncoder;
+import feign.http2client.Http2Client;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import jakarta.annotation.PostConstruct;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +16,10 @@ import org.springframework.context.annotation.Configuration;
 import sotd.spotify.model.AccessTokenResponse;
 import sotd.spotify.oauth.OAuthInterceptor;
 import sotd.spotify.oauth.SpotifyOAuth;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 @Configuration
 public class SpotifyConfiguration {
@@ -51,6 +53,7 @@ public class SpotifyConfiguration {
                 .requestInterceptor(oAuthInterceptor)
                 .logger(new Logger.JavaLogger("Spotify.Logger").appendToFile("logs/sotd.spotify.log"))
                 .logLevel(Logger.Level.BASIC)
+                .client(new Http2Client())
                 .encoder(new JacksonEncoder(List.of(new Jdk8Module())))
                 .decoder(new JacksonDecoder(List.of(new Jdk8Module())))
                 .target(Spotify.class, "https://api.spotify.com");

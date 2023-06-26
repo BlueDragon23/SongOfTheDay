@@ -11,10 +11,8 @@ public class Adapter {
 
     public Modification findNewSongs(final PlaylistObject playlist, final List<Song> existingSongs) {
         final List<Song> songs = getSongs(playlist);
-        // Compare lists
-        final Modification modification = getModifications(songs, existingSongs);
-        // Update Notion
-        return modification;
+        // Compare lists and update Notion
+        return getModifications(songs, existingSongs);
     }
 
     private Modification getModifications(List<Song> ids, List<Song> existingIds) {
@@ -32,18 +30,12 @@ public class Adapter {
                 toBeRemoved.add(id);
             }
         }
-        final Modification modification = new Modification();
-        modification.toBeAdded = toBeAdded;
-        modification.toBeRemoved = toBeRemoved;
-        return modification;
+        return new Modification(toBeAdded, toBeRemoved);
     }
 
     private List<Song> getSongs(PlaylistObject playlist) {
-        return playlist.getTracks().getItems().stream().map(Song::fromTrack).collect(Collectors.toList());
+        return playlist.tracks().items().stream().map(Song::fromTrack).collect(Collectors.toList());
     }
 
-    public static class Modification {
-        public Set<Song> toBeAdded;
-        public Set<Song> toBeRemoved;
-    }
+    public record Modification(Set<Song> toBeAdded, Set<Song> toBeRemoved) {}
 }

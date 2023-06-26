@@ -1,10 +1,10 @@
 package sotd.adapter;
 
-import sotd.spotify.model.TrackObject;
+import sotd.spotify.model.PlaylistTrackObject;
 
 public interface ModelConverter<T> {
 
-    T toRecord(TrackObject trackObject);
+    T toRecord(PlaylistTrackObject trackObject);
 
-    TrackObject fromRecord(T record);
+    PlaylistTrackObject fromRecord(T record);
 }

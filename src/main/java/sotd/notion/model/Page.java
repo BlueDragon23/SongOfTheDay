@@ -2,21 +2,17 @@ package sotd.notion.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import sotd.notion.model.propertyvalues.PropertyValue;
 
+/**
+ * @param object Always "page"
+ */
 @JsonAutoDetect
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Page {
-
-    // Always page
-    private final String object;
-    private final String id;
-    private final boolean archived;
-    private final Map<String, PropertyValue> properties;
-    private final Object parent;
-    private final String url;
+public record Page(
+        String object, String id, boolean archived, Map<String, PropertyValue> properties, Object parent, String url) {
 
     @JsonCreator
     public Page(
@@ -34,27 +30,16 @@ public class Page {
         this.url = url;
     }
 
-    public String getObject() {
-        return object;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public boolean isArchived() {
-        return archived;
-    }
-
-    public Map<String, PropertyValue> getProperties() {
-        return properties;
-    }
-
-    public Object getParent() {
-        return parent;
-    }
-
-    public String getUrl() {
-        return url;
+    /**
+     * Attempt to get a typed property value
+     * @param key The property key
+     * @return The property value
+     * @param <T> The type of property value
+     * @throws ClassCastException if the value is of a different type, or if the key doesn't exist
+     */
+    @JsonIgnore
+    @SuppressWarnings("unchecked")
+    public <T extends PropertyValue> T getPropertyValue(String key) {
+        return (T) properties.get(key);
     }
 }

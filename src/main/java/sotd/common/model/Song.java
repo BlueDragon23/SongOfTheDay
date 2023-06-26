@@ -1,33 +1,21 @@
 package sotd.common.model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import sotd.spotify.model.PlaylistTrackObject;
 import sotd.spotify.model.SimplifiedArtistObject;
 import sotd.spotify.model.TrackObject;
 
-public class Song {
-    private final String title;
-    private final List<String> artists;
+public record Song(String title, List<String> artists, LocalDate addedAt) {
 
-    public Song(String title, List<String> artists) {
-        this.title = title;
-        this.artists = artists;
-    }
-
-    public static Song fromTrack(TrackObject track) {
-        String title = track.getName();
+    public static Song fromTrack(PlaylistTrackObject playlistTrack) {
+        TrackObject track = playlistTrack.track();
+        String title = track.name();
         List<String> artists =
-                track.getArtists().stream().map(SimplifiedArtistObject::getName).collect(Collectors.toList());
-        return new Song(title, artists);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public List<String> getArtists() {
-        return artists;
+                track.artists().stream().map(SimplifiedArtistObject::getName).collect(Collectors.toList());
+        return new Song(title, artists, playlistTrack.getAddedAt());
     }
 
     @Override

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import sotd.Executor;
+import sotd.notion.NotionService;
+import sotd.spotify.Spotify;
 import sotd.spotify.SpotifyProperties;
 import sotd.spotify.model.AccessTokenRequest;
 import sotd.spotify.model.AccessTokenResponse;
@@ -31,18 +33,37 @@ public class SotdController {
     private final Executor executor;
     private final SpotifyOAuth spotifyOAuth;
     private final SpotifyProperties spotifyProperties;
+    private final Spotify spotify;
+    private final NotionService notionService;
 
     @Autowired
-    public SotdController(Executor executor, SpotifyOAuth spotifyOAuth, SpotifyProperties spotifyProperties) {
+    public SotdController(
+            Executor executor,
+            SpotifyOAuth spotifyOAuth,
+            SpotifyProperties spotifyProperties,
+            Spotify spotify,
+            NotionService notionService) {
         this.executor = executor;
         this.spotifyOAuth = spotifyOAuth;
         this.spotifyProperties = spotifyProperties;
+        this.spotify = spotify;
+        this.notionService = notionService;
     }
 
     @GetMapping("/execute")
     public void execute() {
         executor.execute();
     }
+
+    @GetMapping("/fetch-playlist")
+    public ResponseEntity<?> fetchPlaylist() {
+        return new ResponseEntity<>(spotify.getPlaylist(spotifyProperties.getPlaylistId()), HttpStatus.OK);
+    }
+
+    //    @GetMapping("/notion-test")
+    //    public void notionTest() {
+    //        notionService.test();
+    //    }
 
     @GetMapping("/login")
     public ResponseEntity<?> login() {
