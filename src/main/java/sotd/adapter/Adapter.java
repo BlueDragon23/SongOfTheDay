@@ -7,35 +7,19 @@ import java.util.stream.Collectors;
 import sotd.common.model.Song;
 import sotd.spotify.model.PlaylistObject;
 
-public class Adapter {
+public final class Adapter {
 
-    public Modification findNewSongs(final PlaylistObject playlist, final List<Song> existingSongs) {
-        final List<Song> songs = getSongs(playlist);
-        // Compare lists and update Notion
-        return getModifications(songs, existingSongs);
+    private Adapter() {
+        // hm
     }
 
-    private Modification getModifications(List<Song> ids, List<Song> existingIds) {
-        final Set<Song> idSet = new HashSet<>(ids);
-        final Set<Song> existingIdSet = new HashSet<>(existingIds);
-        final Set<Song> toBeAdded = new HashSet<>();
-        for (Song id : ids) {
-            if (!existingIdSet.contains(id)) {
-                toBeAdded.add(id);
-            }
-        }
-        final Set<Song> toBeRemoved = new HashSet<>();
-        for (Song id : existingIds) {
-            if (!idSet.contains(id)) {
-                toBeRemoved.add(id);
-            }
-        }
-        return new Modification(toBeAdded, toBeRemoved);
+    public static Set<Song> getNewSongs(List<Song> allSongs, List<Song> existingSongs) {
+        Set<Song> result = new HashSet<>(allSongs);
+        existingSongs.forEach(result::remove);
+        return result;
     }
 
-    private List<Song> getSongs(PlaylistObject playlist) {
+    public static List<Song> getSongs(PlaylistObject playlist) {
         return playlist.tracks().items().stream().map(Song::fromTrack).collect(Collectors.toList());
     }
-
-    public record Modification(Set<Song> toBeAdded, Set<Song> toBeRemoved) {}
 }

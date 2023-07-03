@@ -8,14 +8,15 @@ import sotd.spotify.model.PlaylistTrackObject;
 import sotd.spotify.model.SimplifiedArtistObject;
 import sotd.spotify.model.TrackObject;
 
-public record Song(String title, List<String> artists, LocalDate addedAt) {
+public record Song(String title, List<String> artists, String album, LocalDate addedAt) {
 
     public static Song fromTrack(PlaylistTrackObject playlistTrack) {
         TrackObject track = playlistTrack.track();
         String title = track.name();
         List<String> artists =
                 track.artists().stream().map(SimplifiedArtistObject::getName).collect(Collectors.toList());
-        return new Song(title, artists, playlistTrack.getAddedAt());
+        String album = playlistTrack.track().album().getName();
+        return new Song(title, artists, album, playlistTrack.getAddedAt());
     }
 
     @Override
@@ -23,7 +24,7 @@ public record Song(String title, List<String> artists, LocalDate addedAt) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
-        return title.equals(song.title) && artists.equals(song.artists);
+        return title.equals(song.title) && artists.equals(song.artists) && album.equals(song.album);
     }
 
     @Override

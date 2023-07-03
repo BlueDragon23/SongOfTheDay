@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import sotd.Executor;
+import sotd.common.model.Song;
 import sotd.notion.NotionService;
 import sotd.spotify.Spotify;
 import sotd.spotify.SpotifyProperties;
-import sotd.spotify.model.*;
+import sotd.spotify.model.AccessTokenRequest;
+import sotd.spotify.model.AccessTokenResponse;
 import sotd.spotify.oauth.SpotifyOAuth;
 
 @RestController
@@ -68,23 +69,9 @@ public class SotdController {
 
     @GetMapping("/add-track")
     public ResponseEntity<String> addTrack() {
-        ArtistObject artist = new ArtistObject("", "", "Arctic Monkeys", "", "", Collections.emptyList());
         return new ResponseEntity<>(
                 notionService
-                        .addTrack(new PlaylistTrackObject(
-                                Instant.now().toString(),
-                                new TrackObject(
-                                        new SimplifedAlbumObject("", "", List.of(artist), "", "", "", "", "", ""),
-                                        List.of(artist),
-                                        10,
-                                        "",
-                                        "",
-                                        false,
-                                        "Do I wanna know",
-                                        "",
-                                        0,
-                                        "",
-                                        "")))
+                        .addTrack(new Song("Do I wanna know", List.of("Arctic Monkeys"), "AM", LocalDate.now()))
                         .toString(),
                 HttpStatus.OK);
     }

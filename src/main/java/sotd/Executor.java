@@ -1,7 +1,7 @@
 package sotd;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,9 @@ import sotd.adapter.Adapter;
 import sotd.common.model.Song;
 import sotd.notion.NotionService;
 import sotd.notion.model.Page;
-import sotd.notion.model.propertyvalues.DatePropertyValue;
-import sotd.notion.model.propertyvalues.RichTextPropertyValue;
-import sotd.notion.model.propertyvalues.TitlePropertyValue;
 import sotd.spotify.Spotify;
 import sotd.spotify.SpotifyProperties;
 import sotd.spotify.model.PlaylistObject;
-import sotd.spotify.model.PlaylistTrackObject;
 
 @Component
 public class Executor {
@@ -41,32 +37,13 @@ public class Executor {
         logger.info("{}: {}", playlist.name(), playlist.description());
 
         List<Page> entries = notionService.getTracks();
-        logger.info("There are {} entries", entries.size());
-        if (entries.size() > 0) {
-            logger.info("First entry is {}", entries.get(0));
-        }
-        List<Song> existingSongs = entries.stream()
-                .map(p -> {
-                    TitlePropertyValue title = p.getPropertyValue("Title");
-                    DatePropertyValue dateAdded = p.getPropertyValue("Date Added");
-                    RichTextPropertyValue artists = p.getPropertyValue("Artists");
-                    return new Song(
-                            title.getPlainText(),
-                            List.of(artists.getPlainText().split(", ")),
-                            dateAdded.getDateObject().getStartDate());
-                })
-                .collect(Collectors.toList());
-        Adapter adapter = new Adapter();
-        Adapter.Modification newSongs = adapter.findNewSongs(playlist, existingSongs);
+        logger.info("There are {} existing entries", entries.size());
 
-        List<PlaylistTrackObject> newTracks = playlist.tracks().items().stream()
-                .filter(t -> {
-                    Song song = Song.fromTrack(t);
-                    return newSongs.toBeAdded().contains(song);
-                })
-                .toList();
+        List<Song> existingSongs = notionService.convertTracks(entries);
+        List<Song> allSongs = Adapter.getSongs(playlist);
+        Set<Song> newSongs = Adapter.getNewSongs(allSongs, existingSongs);
 
-        newTracks.forEach(notionService::addTrack);
+        newSongs.forEach(notionService::addTrack);
         logger.info("Completed updating Notion");
     }
 }

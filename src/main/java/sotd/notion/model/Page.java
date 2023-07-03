@@ -36,6 +36,13 @@ public record Page(
     }
 
     /**
+     * Create a page with just properties for use in creation
+     */
+    public Page(Map<String, PropertyValue> properties) {
+        this(null, null, false, properties, null, null);
+    }
+
+    /**
      * Attempt to get a typed property value
      * @param key The property key
      * @return The property value

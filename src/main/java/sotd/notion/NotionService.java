@@ -8,18 +8,17 @@ import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import sotd.common.model.Song;
 import sotd.notion.model.CreatePageRequest;
 import sotd.notion.model.Page;
 import sotd.notion.model.PageParent;
 import sotd.notion.model.QueryResponse;
-import sotd.notion.model.propertyvalues.PropertyValue;
 import sotd.notion.model.query.QueryDatabaseBody;
 import sotd.notion.model.query.Sort;
-import sotd.spotify.model.PlaylistTrackObject;
 
 /**
  * Handle interactions to sotd.notion
@@ -48,13 +47,17 @@ public class NotionService {
         notionConverter = new NotionConverter();
     }
 
-    public Page addTrack(PlaylistTrackObject track) {
-        Map<String, PropertyValue> pageProperties = notionConverter.toRecord(track);
+    public List<Song> convertTracks(List<Page> pages) {
+        return pages.stream().map(notionConverter::fromRecord).collect(Collectors.toList());
+    }
+
+    public Page addTrack(Song song) {
+        Page page = notionConverter.toRecord(song);
         CreatePageRequest createPageRequest =
-                new CreatePageRequest(new PageParent(notionProperties.getDatabaseId()), pageProperties);
-        Page page = notion.createPage(createPageRequest);
-        logger.info("Added track {} as page {}", track.track().name(), page);
-        return page;
+                new CreatePageRequest(new PageParent(notionProperties.getDatabaseId()), page.properties());
+        Page createdPage = notion.createPage(createPageRequest);
+        logger.info("Added track {} as page {}", song.title(), page);
+        return createdPage;
     }
 
     public List<Page> getTracks() {
