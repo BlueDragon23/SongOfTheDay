@@ -1,5 +1,7 @@
 package sotd.notion.model.propertyvalues;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum PropertyType {
     RICH_TEXT(Constants.RICH_TEXT),
     NUMBER(Constants.NUMBER),
@@ -27,7 +29,13 @@ public enum PropertyType {
         this.name = name;
     }
 
+    @JsonValue
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 

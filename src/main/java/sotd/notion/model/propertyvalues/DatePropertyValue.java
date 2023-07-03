@@ -8,6 +8,7 @@ import sotd.notion.model.DateObject;
 @JsonAutoDetect
 public class DatePropertyValue extends PropertyValue {
 
+    @JsonProperty("date")
     private final DateObject dateObject;
 
     @JsonCreator

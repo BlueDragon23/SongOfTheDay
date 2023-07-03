@@ -11,14 +11,13 @@ public class QueryDatabaseBody {
     private Optional<List<Sort>> sorts;
 
     @JsonProperty("start_cursor")
-    private Optional<String> startCursor;
+    private String startCursor;
 
     @JsonProperty("page_size")
     private final int pageSize = 100;
 
     public QueryDatabaseBody() {
         this.sorts = Optional.empty();
-        this.startCursor = Optional.empty();
     }
 
     public Optional<List<Sort>> getSorts() {
@@ -31,11 +30,11 @@ public class QueryDatabaseBody {
     }
 
     public QueryDatabaseBody withStartCursor(String startCursor) {
-        this.startCursor = Optional.of(startCursor);
+        this.startCursor = startCursor;
         return this;
     }
 
-    public Optional<String> getStartCursor() {
+    public String getStartCursor() {
         return startCursor;
     }
 

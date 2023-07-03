@@ -11,6 +11,7 @@ import sotd.notion.model.RichTextObject;
 @JsonTypeName(PropertyType.Constants.TITLE)
 public class TitlePropertyValue extends PropertyValue {
 
+    @JsonProperty("title")
     private final List<RichTextObject> richTextObjects;
 
     @JsonCreator

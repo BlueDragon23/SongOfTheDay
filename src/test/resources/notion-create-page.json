@@ -1,0 +1,27 @@
+{
+  "parent": { "type": "database_id", "database_id": "d9824bdc84454327be8b5b47500af6ce" },
+  "properties": {
+    "Name": {
+      "type": "title",
+      "title": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Tuscan Kale"
+          }
+        }
+      ]
+    },
+    "Description": {
+      "type": "rich_text",
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "A dark green leafy vegetable"
+          }
+        }
+      ]
+    }
+  }
+}

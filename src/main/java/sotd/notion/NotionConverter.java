@@ -1,6 +1,5 @@
 package sotd.notion;
 
-import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import sotd.spotify.model.TrackObject;
 @Component
 public class NotionConverter implements ModelConverter<Map<String, PropertyValue>> {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_INSTANT;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
     @Override
     public Map<String, PropertyValue> toRecord(PlaylistTrackObject playlistTrackObject) {
@@ -31,7 +30,7 @@ public class NotionConverter implements ModelConverter<Map<String, PropertyValue
                         .map(SimplifiedArtistObject::getName)
                         .collect(Collectors.joining(", "))));
         properties.put("Album", new RichTextPropertyValue(trackObject.album().getName()));
-        properties.put("Date Added", new DatePropertyValue(FORMATTER.format(Instant.now())));
+        properties.put("Date Added", new DatePropertyValue(FORMATTER.format(playlistTrackObject.getAddedAt())));
         return properties;
     }
 

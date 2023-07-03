@@ -12,7 +12,12 @@ import sotd.notion.model.propertyvalues.PropertyValue;
  */
 @JsonAutoDetect
 public record Page(
-        String object, String id, boolean archived, Map<String, PropertyValue> properties, Object parent, String url) {
+        String object,
+        String id,
+        boolean archived,
+        Map<String, PropertyValue> properties,
+        PageParent parent,
+        String url) {
 
     @JsonCreator
     public Page(
@@ -20,7 +25,7 @@ public record Page(
             @JsonProperty("id") String id,
             @JsonProperty("archived") boolean archived,
             @JsonProperty("properties") Map<String, PropertyValue> properties,
-            @JsonProperty("parent") Object parent,
+            @JsonProperty("parent") PageParent parent,
             @JsonProperty("url") String url) {
         this.object = object;
         this.id = id;

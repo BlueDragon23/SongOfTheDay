@@ -40,6 +40,7 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock:3.0.0-beta-9")
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.0.3")
+    testImplementation("org.skyscreamer:jsonassert:1.5.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 

@@ -11,6 +11,7 @@ import sotd.notion.model.RichTextObject;
 @JsonAutoDetect
 public class RichTextPropertyValue extends PropertyValue {
 
+    @JsonProperty("rich_text")
     private final List<RichTextObject> richTextObjects;
 
     @JsonCreator
